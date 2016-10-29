@@ -75,8 +75,12 @@ class Find_similar():
             writer = csv.writer(csvfile)
             for row in result:
                 input_campany_name = row['campany'].name
-                for match in row['match']:
-                    writer.writerow([input_campany_name, match[
+                if row['match']:
+                    first_match = row['match'][0]
+                    writer.writerow([input_campany_name, first_match[
+                                    'campany'].name, first_match['confidence']])
+                for match in row['match'][1:]:
+                    writer.writerow(['', match[
                                     'campany'].name, match['confidence']])
 if __name__ == '__main__':
     f = Find_similar()
